@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>My Courses</h3>
+
+{% if enrollments %}
+<div class="row">
+    {% for enrollment in enrollments %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            {% if enrollment.course.thumbnail %}
+                <img src="{{ enrollment.course.thumbnail.url }}"
+                     class="card-img-top" height="150"
+                     style="object-fit:cover">
+            {% endif %}
+            <div class="card-body">
+                <h5>{{ enrollment.course.title }}</h5>
+                <p>{{ enrollment.course.description|truncatewords:10 }}</p>
+                <span class="badge 
+                    {% if enrollment.status == 'active' %}
+                        bg-success
+                    {% elif enrollment.status == 'completed' %}
+                        bg-primary
+                    {% else %}
+                        bg-danger
+                    {% endif %}">
+                    {{ enrollment.status|title }}
+                </span>
+                <p class="mt-2 text-muted small">
+                    Enrolled: {{ enrollment.enrolled_at|date:"d M Y" }}
+                </p>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'course_detail' enrollment.course.pk %}"
+                   class="btn btn-dark btn-sm w-100 mb-1">
+                    Continue Learning
+                </a>
+                {% if enrollment.status == 'active' %}
+                <a href="{% url 'cancel_enrollment' enrollment.pk %}"
+                   class="btn btn-outline-danger btn-sm w-100">
+                    Cancel Enrollment
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">
+    You haven't enrolled in any courses yet.
+    <a href="{% url 'course_list' %}">Browse Courses</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h4>Confirm Enrollment</h4>
+            </div>
+            <div class="card-body">
+                <h5>{{ course.title }}</h5>
+                <p>{{ course.description|truncatewords:20 }}</p>
+                <hr>
+                <p>Level: <strong>{{ course.level }}</strong></p>
+                <p>Instructor: 
+                    <strong>{{ course.instructor.username }}</strong>
+                </p>
+                <h4 class="text-success">${{ course.price }}</h4>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" 
+                            class="btn btn-dark w-100 mb-2">
+                        Confirm Enrollment
+                    </button>
+                    <a href="{% url 'course_detail' course.pk %}" 
+                       class="btn btn-outline-dark w-100">
+                        Cancel
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

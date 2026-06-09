@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <!-- Search & Filter -->
+    <div class="col-md-3">
+        <div class="card mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5>Filter Courses</h5>
+            </div>
+            <div class="card-body">
+                <form method="GET">
+                    <input type="text" name="q" 
+                           class="form-control mb-2"
+                           placeholder="Search courses..."
+                           value="{{ query|default:'' }}">
+                    <select name="category" 
+                            class="form-control mb-2">
+                        <option value="">All Categories</option>
+                        {% for cat in categories %}
+                        <option value="{{ cat.id }}">
+                            {{ cat.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" 
+                            class="btn btn-dark w-100">
+                        Filter
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course List -->
+    <div class="col-md-9">
+        <h3>All Courses</h3>
+        <div class="row">
+            {% for course in courses %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if course.thumbnail %}
+                        <img src="{{ course.thumbnail.url }}"
+                             class="card-img-top" height="150"
+                             style="object-fit:cover">
+                    {% endif %}
+                    <div class="card-body">
+                        <h6>{{ course.title }}</h6>
+                        <p>{{ course.description|truncatewords:10 }}</p>
+                        <span class="badge bg-dark">
+                            {{ course.level }}
+                        </span>
+                        <span class="badge bg-success">
+                            ${{ course.price }}
+                        </span>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'course_detail' course.pk %}"
+                           class="btn btn-dark btn-sm w-100">
+                            View Course
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>No courses found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

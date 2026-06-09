@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        {% if course.thumbnail %}
+            <img src="{{ course.thumbnail.url }}" 
+                 class="img-fluid rounded mb-3">
+        {% endif %}
+        <h2>{{ course.title }}</h2>
+        <p>{{ course.description }}</p>
+        <span class="badge bg-dark">{{ course.level }}</span>
+        <span class="badge bg-secondary">
+            {{ course.category }}
+        </span>
+
+        <h4 class="mt-4">Lessons</h4>
+        <ul class="list-group">
+            {% for lesson in lessons %}
+            <li class="list-group-item">
+                <a href="{% url 'lesson_detail' lesson.pk %}">
+                {{ lesson.order }}. {{ lesson.title }}
+                </a>
+            </li>
+            {% empty %}
+            <li class="list-group-item">
+                No lessons yet.
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="text-success">${{ course.price }}</h3>
+                <p>Instructor: {{ course.instructor.username }}</p>
+                <p>Category: {{ course.category }}</p>
+                <p>Level: {{ course.level }}</p>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'enroll_course' course.pk %}" 
+                       class="btn btn-dark w-100 mb-2">
+                        Enroll Now - ${{ course.price }}
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" 
+                       class="btn btn-dark w-100 mb-2">
+                        Login to Enroll
+                    </a>
+                {% endif %}
+
+                <a href="{% url 'my_courses' %}" 
+                   class="btn btn-outline-dark w-100 mb-2">
+                    My Courses
+                </a>
+                <a href="{% url 'course_list' %}" 
+                   class="btn btn-outline-dark w-100">
+                    Back to Courses
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

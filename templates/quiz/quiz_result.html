@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h4>Quiz Result</h4>
+            </div>
+            <div class="card-body text-center">
+                <h5>{{ quiz.title }}</h5>
+                <hr>
+                <h2 class="
+                    {% if result.passed %}
+                        text-success
+                    {% else %}
+                        text-danger
+                    {% endif %}">
+                    {{ result.score }} / {{ result.total }}
+                </h2>
+                <h4>{{ result.percentage|floatformat:1 }}%</h4>
+
+                {% if result.passed %}
+                    <div class="alert alert-success">
+                        🎉 Congratulations! You Passed!
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger">
+                        ❌ You Failed. Try Again!
+                    </div>
+                {% endif %}
+
+                <a href="{% url 'take_quiz' quiz.id %}"
+                   class="btn btn-dark mb-2 w-100">
+                    Retake Quiz
+                </a>
+                <a href="{% url 'course_detail' quiz.course.id %}"
+                   class="btn btn-outline-dark w-100">
+                    Back to Course
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
