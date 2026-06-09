@@ -25,4 +25,5 @@ urlpatterns = [
     path('users/', include('usersapp.urls')),
     path('enrollment/', include('enrollment.urls')),
     path('quiz/', include('quiz.urls')),
+    path('api/', include('myproject.api_urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
