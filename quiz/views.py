@@ -26,7 +26,7 @@ def take_quiz(request, quiz_id):
 
         for question in questions:
             selected = request.POST.get(f'question_{question.id}')
-            if selected == question.correct_answer:
+            if selected and str(selected).strip() == str( question.correct_answer).strip():
                 score += 1
 
         percentage = (score / total * 100) if total > 0 else 0
@@ -53,8 +53,9 @@ def quiz_result(request, quiz_id):
     result = StudentScore.objects.filter(
         student=request.user,
         quiz=quiz
-    ).last()
+    ).last() 
     return render(request, 'quiz/quiz_result.html', {
         'quiz': quiz,
         'result': result
     })
+    

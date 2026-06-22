@@ -64,3 +64,8 @@ def course_create(request):
         form = CourseForm()
     return render(request, 'courses/course_form.html', 
                  {'form': form})
+    
+    @login_required
+    def course_list(request):
+       return render(request, 'courses/course_list.html', context)
+   

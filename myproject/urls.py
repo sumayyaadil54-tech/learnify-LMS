@@ -21,8 +21,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('courses.urls')),
-    path('users/', include('usersapp.urls')),
+    
+    # 1. Root URL now points directly to usersapp (Registers/Logins first)
+    path('', include('usersapp.urls')), 
+    
+    # 2. Move your home/courses view to a separate path like '/dashboard/'
+    path('dashboard/', include('courses.urls')), 
+    
     path('enrollment/', include('enrollment.urls')),
     path('quiz/', include('quiz.urls')),
     path('api/', include('myproject.api_urls')),

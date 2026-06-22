@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-m#pt5ouc(r5ruk0g7l@)pb6qhs_3klr)sevvj51q)$v(8mf@_&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'sumayyasumi.pythonanywhere.com',
+]
 
 
 # Application definition
@@ -134,3 +138,7 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
     ]
 }
+
+STATIC_ROOT = '/home/sumayyasumi/learnify-LMS/static'
+LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = '/dashboard/'

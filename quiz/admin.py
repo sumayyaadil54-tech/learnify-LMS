@@ -22,4 +22,4 @@ class QuestionAdmin(admin.ModelAdmin):
 class StudentScoreAdmin(admin.ModelAdmin):
     list_display = ('student', 'quiz', 'score', 
                    'total', 'percentage', 'passed')
-    list_filter = ('passed',)
+    list_filter = ('passed',) 

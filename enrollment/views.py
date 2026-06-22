@@ -62,3 +62,4 @@ def cancel_enrollment(request, enrollment_id):
     return render(request, 'enrollment/cancel_confirm.html', {
         'enrollment': enrollment
     })
+    
