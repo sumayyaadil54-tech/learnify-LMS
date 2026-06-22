@@ -1,8 +1,11 @@
-# usersapp/forms.py
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+class CustomUserCreationForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].help_text = "required. 20 characters or fewer. Letters, digits and @/./+/-/_ only."
 class SignUpForm(UserCreationForm):
     username = forms.CharField(
         max_length=20, 
