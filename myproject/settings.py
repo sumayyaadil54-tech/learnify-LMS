@@ -139,7 +139,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-STATIC_ROOT = '/home/sumayyasumi/learnify-LMS/static'
+
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 
